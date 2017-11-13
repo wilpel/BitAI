@@ -42,7 +42,7 @@ public class NeuralNetwork {
 	public void dump(Layer[] ls) throws FileNotFoundException, IOException {
 		final String dir = System.getProperty("user.dir");
 		File dumps_file = new File(dir + dump_name);
-		PrintWriter writer = new PrintWriter(dump_file, "UTF-8");
+		PrintWriter writer = new PrintWriter(dumps_file, "UTF-8");
 		String json_dumps = new Gson().toJson(ls);
 		// System.out.println(dir);
 		writer.print(json_dumps);
