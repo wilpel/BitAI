@@ -52,7 +52,7 @@ public class NeuralNetwork {
 		writer.close();
 	}
 
-	public Layer[] loadDump(String filepath) throws FileNotFoundException , IOException{
+	public static Layer[] loadDump(String filepath) throws FileNotFoundException , IOException{
 		FileReader fr = new FileReader(filepath);
 		BufferedReader br = new BufferedReader(fr);
 		String json_dumps = null;

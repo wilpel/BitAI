@@ -1,6 +1,7 @@
 package tests;
 
 import java.awt.BorderLayout;
+import static com.BitAI.neural.NeuralNetwork.loadDump;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Font;
@@ -43,6 +44,8 @@ public class test002 extends JFrame {
 	public static Rectangle playerRect = new Rectangle();
 
 	public static ArrayList<Ball> balls = new ArrayList<Ball>();
+	
+	public Layer[] loaded_layer;
 
 	public static int sleepMS = 2;
 	public static int scoreAI, scoreWall;
@@ -74,6 +77,10 @@ public class test002 extends JFrame {
 	    	                if(return_val == JFileChooser.APPROVE_OPTION) {
 	    	                	String filepath = fc.getSelectedFile().toString();
 	    	                	System.out.println(filepath);
+	    	                	loaded_layer = NeuralNetwork.loadDump(filepath);
+	    	                	//
+	    	                	//LOADED LAYER ANVÄNDS INTE ÄN
+	    	                	//
 	    	                } else {
 	    	                	System.out.println("An error occurred trying to open the file, please blame Gustav...");
 	    	                }
