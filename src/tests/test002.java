@@ -2,9 +2,12 @@ package tests;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -14,7 +17,12 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import com.BitAI.neural.NeuralNetwork;
@@ -42,7 +50,42 @@ public class test002 extends JFrame {
 
 	public static JPanel panel;
 	ActivationTANH act = new ActivationTANH();
+	
+	//Menu stuff begin
+	JEditorPane webWindow = new JEditorPane();
+	JMenu file = new JMenu("File");
+	JMenuBar menu = new JMenuBar();
+	JMenuItem open = new JMenuItem("Open file...");
+
 	public test002() {
+		webWindow.setEditable(false);
+		setJMenuBar(menu);
+	    menu.add(file);
+	    file.add(open);
+	    open.addActionListener(
+	    	    new ActionListener() {
+	    	        public void actionPerformed(ActionEvent enterPress) {
+	    	            try {
+	    	            	//final String dir = System.getProperty("user.dir");
+	    	                //Desktop.getDesktop().open(new File(dir));
+	    	            	final JFileChooser fc = new JFileChooser();
+	    	                fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+	    	                int return_val = fc.showOpenDialog(test002.this);
+	    	                if(return_val == JFileChooser.APPROVE_OPTION) {
+	    	                	String filepath = fc.getSelectedFile().toString();
+	    	                	System.out.println(filepath);
+	    	                } else {
+	    	                	System.out.println("An error occurred trying to open the file, please blame Gustav...");
+	    	                }
+	    	            	
+	    	            } catch (Exception e) {
+	    	                // TODO Auto-generated catch block
+	    	                e.printStackTrace();
+	    	            }
+	    	        }
+	    	    });
+	    
+	    //Menu stuff END
 		
 		setTitle("Genetic Pong");
 		setSize(500, 360);
@@ -102,6 +145,9 @@ public class test002 extends JFrame {
 
 	}
 	
+	/*public String getDump() {
+		
+	}*/
 	
 	public static void main(String[] args) {
 		new test002().setVisible(true);

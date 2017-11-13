@@ -1,5 +1,6 @@
 package com.BitAI.neural;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,6 +13,8 @@ import java.util.Arrays;
 import com.BitAI.neural.layers.BasicLayer;
 import com.BitAI.neural.layers.Layer;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 public class NeuralNetwork {
 
@@ -49,12 +52,25 @@ public class NeuralNetwork {
 		writer.close();
 	}
 
-	/*public Layer[] load() throws FileNotFoundException {
+	public Layer[] loadDump(String filepath) throws FileNotFoundException , IOException{
+		FileReader fr = new FileReader(filepath);
+		BufferedReader br = new BufferedReader(fr);
+		String json_dumps = null;
+		String line = null;
+		while ((line = br.readLine())!= null) {
+			json_dumps += line;
+		}
+		br.close();
+		JsonElement jelement = new JsonParser().parse(json_dumps);
+		Layer[] return_layer = new Gson().fromJson(json_dumps, Layer[].class);
+		return return_layer;
+	}
+	/*public Layer[] loadString(String dumps) throws FileNotFoundException {
 		final String dir = System.getProperty("user.dir");
 		String dumps_file = dir + dump_name;
 		FileReader fr = new FileReader(dump_name);
-		String json_string = fr.read(cbuf, offset, fr.read())
 	}*/
+
 
 	public float[] compute(float[] input) {
 
