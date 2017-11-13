@@ -55,6 +55,8 @@ public class Layer {
 
 	public float[] feedForward(float[] input) {
 
+		
+		
 		this.input = input;
 
 		for (int i = 0; i < outputNeuronCount; i++) {
@@ -62,17 +64,16 @@ public class Layer {
 			output[i] = 0;
 
 			for (int j = 0; j < inputNeuronCount; j++) {
-
+				
 				output[i] += input[j] * weights[i][j];
 				
-				if(Float.isNaN(output[i])) {
-					System.out.println(input[j]+" | "+weights[i][j]+" | "+Arrays.toString(input));
-				}
+		
 			}
 
 			output[i] = af.process(output[i]);
 
 		}
+
 
 		return output;
 	}

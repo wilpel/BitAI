@@ -30,11 +30,11 @@ public class test002 extends JFrame {
 
 	public static ArrayList<Ball> balls = new ArrayList<Ball>();
 
-	public static int sleepMS = 0;
+	public static int sleepMS = 2;
 	public static int scoreAI, scoreWall;
 
 	public static JPanel panel;
-	ActivationSinusoid act = new ActivationSinusoid();
+	ActivationTANH act = new ActivationTANH();
 	public test002() {
 		
 		setTitle("Genetic Pong");
@@ -74,8 +74,7 @@ public class test002 extends JFrame {
 			public void run() {
 
 				NeuralNetwork network = new NeuralNetwork(new BasicLayer[] {
-						new BasicLayer(1, act), new BasicLayer(500, act),
-						new BasicLayer(500, act), new BasicLayer(1, act) });
+						new BasicLayer(2, act), new BasicLayer(1, act), new BasicLayer(1, act) });
 				GeneticAlgorithm ga = new GeneticAlgorithm(network, 10, 1000000);
 
 				ga.train(new NetworkScore() {
@@ -114,7 +113,7 @@ public class test002 extends JFrame {
 
 			while (running) {
 
-				float[] output = net.compute(new float[] {balls.get(0).y });
+				float[] output = net.compute(new float[] {playerY, balls.get(0).y });
 
 				// if(playerY>0&&playerY<360-50)
 				playerY += output[0] * 10;
