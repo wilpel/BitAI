@@ -1,10 +1,18 @@
 package com.BitAI.neural;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
 import com.BitAI.neural.layers.BasicLayer;
 import com.BitAI.neural.layers.Layer;
+import com.google.gson.Gson;
+
 
 public class NeuralNetwork {
 
@@ -22,6 +30,22 @@ public class NeuralNetwork {
 		}
 
 	}
+	
+	public void dump(Layer[] ls) throws FileNotFoundException, IOException {
+		final String dir = System.getProperty("user.dir");
+		File file = new File(dir + "/dumps/last_dump.txt");
+		PrintWriter writer = new PrintWriter(file, "UTF-8");
+		String json_dumps = new Gson().toJson(ls);
+		//System.out.println(dir);
+		writer.print(json_dumps);
+		writer.close();
+	}
+	
+	/*public Layer[] load() throws FileNotFoundException {
+		String dumps_name = "dumps/dump-1.txt";
+		FileReader fr = new FileReader(dumps_name);
+	}*/
+
 
 	public float[] compute(float[] input) {
 		

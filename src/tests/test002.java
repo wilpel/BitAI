@@ -7,6 +7,10 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,6 +26,8 @@ import com.BitAI.neural.activation.ActivationTANH;
 import com.BitAI.neural.genetic.GeneticAlgorithm;
 import com.BitAI.neural.genetic.NetworkScore;
 import com.BitAI.neural.layers.BasicLayer;
+import com.BitAI.neural.layers.Layer;
+import com.google.gson.Gson;
 
 public class test002 extends JFrame {
 
@@ -32,6 +38,7 @@ public class test002 extends JFrame {
 
 	public static int sleepMS = 2;
 	public static int scoreAI, scoreWall;
+	public boolean dump;
 
 	public static JPanel panel;
 	ActivationTANH act = new ActivationTANH();
@@ -61,6 +68,9 @@ public class test002 extends JFrame {
 				if (keycode == KeyEvent.VK_3) {
 					sleepMS = 15;
 				}
+				if (keycode == KeyEvent.VK_0) {
+					dump = true;
+				}
 
 			}
 		});
@@ -74,14 +84,13 @@ public class test002 extends JFrame {
 			public void run() {
 
 				NeuralNetwork network = new NeuralNetwork(new BasicLayer[] {
-						new BasicLayer(2, act), new BasicLayer(1, act), new BasicLayer(1, act) });
+						new BasicLayer(2, act), new BasicLayer(5, act), new BasicLayer(1, act) });
 				GeneticAlgorithm ga = new GeneticAlgorithm(network, 10, 1000000);
 
 				ga.train(new NetworkScore() {
 
 					@Override
 					public float calculateNetworkScore(NeuralNetwork net) {
-
 						return loop(net);
 					}
 				});
@@ -92,16 +101,26 @@ public class test002 extends JFrame {
 		this.requestFocus();
 
 	}
-
+	
+	
 	public static void main(String[] args) {
 		new test002().setVisible(true);
-		;
 	}
 
 	public int loop(NeuralNetwork net) {
 
 		int score = 0;
 		boolean running = true;
+		
+		if(dump) {
+			try {
+				net.dump(net.getLayers());
+				System.out.println("dumped");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			dump = false;
+		}
 
 		try {
 			balls.clear();
