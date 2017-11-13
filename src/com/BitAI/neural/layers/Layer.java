@@ -44,6 +44,7 @@ public class Layer {
 			for (int j = 0; j < inputNeuronCount; j++) {
 
 				weights[i][j] = random.nextFloat() - 0.5f;
+				System.out.println("generated weight: "+weights[i][j]);
 			}
 		}
 

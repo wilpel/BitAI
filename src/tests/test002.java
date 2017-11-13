@@ -47,7 +47,7 @@ public class test002 extends JFrame {
 	
 	public Layer[] loaded_layer;
 
-	public static int sleepMS = 2;
+	public static int sleepMS = 0;
 	public static int scoreAI, scoreWall;
 	public boolean dump;
 
@@ -108,7 +108,7 @@ public class test002 extends JFrame {
 				int keycode = e.getKeyCode();
 
 				if (keycode == KeyEvent.VK_1) {
-					sleepMS = 2;
+					sleepMS = 0;
 				}
 
 				if (keycode == KeyEvent.VK_2) {
@@ -134,7 +134,7 @@ public class test002 extends JFrame {
 			public void run() {
 
 				NeuralNetwork network = new NeuralNetwork(new BasicLayer[] {
-						new BasicLayer(2, act), new BasicLayer(5, act), new BasicLayer(1, act) });
+						new BasicLayer(2, act), new BasicLayer(70, act), new BasicLayer(1, act) });
 				GeneticAlgorithm ga = new GeneticAlgorithm(network, 10, 1000000);
 
 				ga.train(new NetworkScore() {
@@ -189,7 +189,7 @@ public class test002 extends JFrame {
 
 				// if(playerY>0&&playerY<360-50)
 				playerY += output[0] * 10;
-				// System.out.println(output[0]);
+				//System.out.println(output[0]);
 
 				if (Float.isNaN(playerY)) {
 					System.out.println("PlayerY: " + playerY+" output: "+output[0]);
@@ -233,7 +233,7 @@ public class test002 extends JFrame {
 
 	public class Ball {
 
-		float x = 500, y, xforce = -1, yforce = -1;
+		float x = 500, y, xforce = -1, yforce = -0.1f;
 
 		Rectangle rect = new Rectangle();
 

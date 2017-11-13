@@ -67,9 +67,9 @@ public class GeneticAlgorithm {
 		List<NeuralNetwork> generated = new ArrayList<NeuralNetwork>();
 
 		generated.add(network);
-		generated.add(mutator.mutate(network, 0, 10));
+		generated.add(mutator.mutate(network, -10, 10));
 		for (int i = 0; i < length-2; i++) {
-			generated.add(mutator.mutate(network, 0.99f, 1.01f));
+			generated.add(mutator.mutate(network, -0.3f, 0.3f));
 		}
 
 		return generated;
