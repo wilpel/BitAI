@@ -52,17 +52,24 @@ public class NeuralNetwork {
 		writer.close();
 	}
 
+
 	public static Layer[] loadDump(String filepath) throws FileNotFoundException , IOException{
+		
+		Gson gson = new Gson();
 		FileReader fr = new FileReader(filepath);
 		BufferedReader br = new BufferedReader(fr);
 		String json_dumps = null;
 		String line = null;
+		//json_dumps = "";
 		while ((line = br.readLine())!= null) {
 			json_dumps += line;
+			//System.out.println(line);
 		}
+		System.out.println(json_dumps);
 		br.close();
-		JsonElement jelement = new JsonParser().parse(json_dumps);
-		Layer[] return_layer = new Gson().fromJson(json_dumps, Layer[].class);
+		//JsonElement jelement = new JsonParser().parse(json_dumps);
+		Layer[] return_layer = gson.fromJson(json_dumps, Layer[].class);
+		System.out.println(return_layer);
 		return return_layer;
 	}
 	/*public Layer[] loadString(String dumps) throws FileNotFoundException {
