@@ -1,8 +1,10 @@
 package com.BitAI.neural.layers;
 
+import java.io.Serializable;
+
 import com.BitAI.neural.activation.ActivationFunction;
 
-public class BasicLayer {
+public class BasicLayer implements Serializable{
 
 	int neuronCount = 0;
 	ActivationFunction af;

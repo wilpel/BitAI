@@ -1,22 +1,19 @@
 package com.BitAI.neural;
 
-import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 import com.BitAI.neural.layers.BasicLayer;
 import com.BitAI.neural.layers.Layer;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
-public class NeuralNetwork {
+public class NeuralNetwork implements Serializable {
 
 	BasicLayer[] layers_array;
 	Layer[] layers;
@@ -27,7 +24,7 @@ public class NeuralNetwork {
 	public NeuralNetwork(BasicLayer[] layers_array) {
 
 		if (loaded_weights) {
-			
+
 		} else {
 
 			this.layers_array = layers_array;
@@ -42,7 +39,7 @@ public class NeuralNetwork {
 
 	}
 
-	public void dump(NeuralNetwork ls) throws FileNotFoundException, IOException {
+	/*public void dump(NeuralNetwork ls) throws FileNotFoundException, IOException {
 		final String dir = System.getProperty("user.dir");
 		File dumps_file = new File(dir + dump_name);
 		new File(dir).mkdirs();
@@ -53,27 +50,66 @@ public class NeuralNetwork {
 		writer.close();
 	}
 
-	public static NeuralNetwork loadDump(String filepath) throws FileNotFoundException , IOException{
+	public static NeuralNetwork loadDump(String filepath) throws FileNotFoundException, IOException {
 		FileReader fr = new FileReader(filepath);
 		BufferedReader br = new BufferedReader(fr);
 		String json_dumps = null;
 		String line = null;
-		while ((line = br.readLine())!= null) {
+		while ((line = br.readLine()) != null) {
 			json_dumps += line;
 		}
 		br.close();
 		Gson gson = new Gson();
-		//JsonElement jelement = new JsonParser().parse(json_dumps);
+		// JsonElement jelement = new JsonParser().parse(json_dumps);
 		NeuralNetwork loaded_net = gson.fromJson(json_dumps, NeuralNetwork.class);
 		System.out.println(loaded_net);
 		return loaded_net;
-	}
-	/*public Layer[] loadString(String dumps) throws FileNotFoundException {
-		final String dir = System.getProperty("user.dir");
-		String dumps_file = dir + dump_name;
-		FileReader fr = new FileReader(dump_name);
 	}*/
 
+	public static NeuralNetwork reader(String filepath) {
+		NeuralNetwork loaded_NN = null;
+		try {
+			FileInputStream fi = new FileInputStream(new File(filepath));
+			ObjectInputStream oi = new ObjectInputStream(fi);
+			System.out.println(loaded_NN);
+			// Read objects
+			loaded_NN = (NeuralNetwork)oi.readObject();
+
+			System.out.println(loaded_NN.getLayers()[1].outputNeuronCount);
+
+			oi.close();
+			fi.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+		} catch (IOException e) {
+			System.out.println("Error initializing stream");
+			e.printStackTrace();
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		return loaded_NN;
+
+	}
+
+	public void writer(NeuralNetwork nn) {
+		try {
+			final String dir = System.getProperty("user.dir");
+			FileOutputStream f = new FileOutputStream(new File(dir +"/dumps/last_dump.txt"));
+			ObjectOutputStream o = new ObjectOutputStream(f);
+			o.writeObject(nn);
+			o.close();
+			f.close();
+
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+		} catch (IOException e) {
+			System.out.println("Error initializing stream");
+			e.printStackTrace();
+		}
+	}
 
 	public float[] compute(float[] input) {
 

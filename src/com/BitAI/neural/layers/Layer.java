@@ -1,13 +1,12 @@
 package com.BitAI.neural.layers;
 
-import java.util.Arrays;
+import java.io.Serializable;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import com.BitAI.neural.Constants;
 import com.BitAI.neural.activation.ActivationFunction;
 
-public class Layer {
+public class Layer implements Serializable {
 
 	private static Random random;
 

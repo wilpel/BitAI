@@ -1,6 +1,8 @@
 package com.BitAI.neural.activation;
 
-public abstract class ActivationFunction {
+import java.io.Serializable;
+
+public abstract class ActivationFunction implements Serializable {
 
 	public abstract float process(float in);
 	

@@ -1,7 +1,7 @@
 package tests;
 
 import java.awt.BorderLayout;
-import static com.BitAI.neural.NeuralNetwork.loadDump;
+import static com.BitAI.neural.NeuralNetwork.reader;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Font;
@@ -77,7 +77,7 @@ public class test002 extends JFrame {
 	    	                if(return_val == JFileChooser.APPROVE_OPTION) {
 	    	                	String filepath = fc.getSelectedFile().toString();
 	    	                	System.out.println(filepath);
-	    	                	loaded_layer = NeuralNetwork.loadDump(filepath);
+	    	                	loaded_layer = NeuralNetwork.reader(filepath);
 	    	                	//
 	    	                	//LOADED LAYER ANVÄNDS INTE ÄN
 	    	                	//
@@ -180,7 +180,7 @@ public class test002 extends JFrame {
 				
 				if(dump) {
 					try {
-						net.dump(net);
+						net.writer(net);
 						System.out.println("dumped");
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -211,7 +211,7 @@ public class test002 extends JFrame {
 
 					if (balls.get(i).rect.intersects(playerRect)) {
 						score++;
-						System.out.println("score: " + score);
+						//System.out.println("score: " + score);
 						balls.get(i).xforce = 1;
 						balls.get(i).x += 5;
 					}
