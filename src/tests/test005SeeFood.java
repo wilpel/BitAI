@@ -13,13 +13,11 @@ import com.BitAI.neural.NeuralNetwork;
 import com.BitAI.neural.activation.ActivationTANH;
 import com.BitAI.neural.layers.BasicLayer;
 
-public class test004Flags {
+public class test005SeeFood {
 
-	public static int AMOUNT_OF_FLAGS = 4;
-	public static int FLAG_ENGLAND = 0;
-	public static int FLAG_JAPAN = 1;
-	public static int FLAG_FINLAND = 2;
-	public static int FLAG_USA = 3;
+	public static int AMOUNT_OF_OBJECTS = 2;
+	public static int HOTDOG = 0;
+	public static int NOT_HOTDOG = 1;
 
 	public static int TRAIN_IRETATIONS = 10000;
 
@@ -30,24 +28,29 @@ public class test004Flags {
 	public static void main(String[] args) {
 
 		network = new NeuralNetwork(new BasicLayer[] { new BasicLayer(20 * 15, act), new BasicLayer(40, act),
-				new BasicLayer(100, act), new BasicLayer(40, act), new BasicLayer(AMOUNT_OF_FLAGS, act) });
+				new BasicLayer(100, act), new BasicLayer(40, act), new BasicLayer(AMOUNT_OF_OBJECTS, act) });
 
 		//for (int j = 0; j < 100; j++) {
 			// TASKS
 			for (int i = 0; i < 10; i++) {
 				System.out.println("training: " + i + "/" + 10);
-				train("https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Flag_of_England.svg/1200px-Flag_of_England.svg.png",
+				train("http://www.wienerschnitzel.com/wp-content/uploads/2014/10/hotdog_mustard-main.jpg",
 						0);
-				train("https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/1200px-Flag_of_Japan.svg.png",
-						1);
-				train("https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/255px-Flag_of_Finland.svg.png",2);
-				train("https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/US_flag_51_stars.svg/2000px-US_flag_51_stars.svg.png",3);
+				
+				train("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Hot_dog_with_mustard.png/1200px-Hot_dog_with_mustard.png",
+						0);
+				
+				train("https://o.aolcdn.com/images/dims3/GLOB/legacy_thumbnail/630x315/format/jpg/quality/85/http%3A%2F%2Fi.huffpost.com%2Fgen%2F3596402%2Fimages%2Fn-HOT-DOG-EATING-628x314.jpg",
+						0);
+				
+				train("http://www.centives.net/S/wp-content/uploads/2012/04/040912_0103_HotDogStati1.png",
+						0);
+
+			
 			}
 			// TESTS
-			performTest("https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Flag_of_England.svg/1200px-Flag_of_England.svg.png");
-			performTest("https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/1200px-Flag_of_Japan.svg.png");
-			performTest("https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Genoa.svg/1024px-Flag_of_Genoa.svg.png");
-			performTest("https://images-na.ssl-images-amazon.com/images/I/21fcVEuKyyL.jpg");
+			performTest("https://regmedia.co.uk/2017/07/07/hotdog.jpg?x=1200&y=794");
+			performTest("https://www.runnersworld.com/sites/runnersworld.com/files/styles/listicle_slide_custom_user_phone_1x/public/reebok_harmony_w_400.jpg?itok=U3lsw4qz");
 		//}
 			
 			
@@ -83,7 +86,7 @@ public class test004Flags {
 				}
 			}
 
-			float[] expectedArray = new float[AMOUNT_OF_FLAGS];
+			float[] expectedArray = new float[AMOUNT_OF_OBJECTS];
 
 			for (int i = 0; i < expectedArray.length; i++)
 				expectedArray[i] = 0;
@@ -123,23 +126,17 @@ public class test004Flags {
 			float highest = 0;
 			int index = 0;
 
-			for (int i = 0; i < AMOUNT_OF_FLAGS; i++) {
+			for (int i = 0; i < AMOUNT_OF_OBJECTS; i++) {
 				if (output[i] > highest) {
 					highest = output[i];
 					index = i;
 				}
 			}
 
-			if (index == FLAG_ENGLAND) {
-				System.out.println("England");
-			} else if (index == FLAG_JAPAN) {
-				System.out.println("Japan");
-
-			} else if (index == FLAG_FINLAND) {
-				System.out.println("Finland");
-
-			} else if (index == FLAG_USA) {
-				System.out.println("USA");
+			if (index == HOTDOG) {
+				System.out.println("Hotdog");
+			} else if (index == NOT_HOTDOG) {
+				System.out.println("Not Hotdog");
 
 			}
 
