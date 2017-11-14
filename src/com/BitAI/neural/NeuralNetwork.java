@@ -45,6 +45,7 @@ public class NeuralNetwork {
 	public void dump(Layer[] ls) throws FileNotFoundException, IOException {
 		final String dir = System.getProperty("user.dir");
 		File dumps_file = new File(dir + dump_name);
+		new File(dir).mkdirs();
 		PrintWriter writer = new PrintWriter(dumps_file, "UTF-8");
 		String json_dumps = new Gson().toJson(ls);
 		// System.out.println(dir);
@@ -52,24 +53,17 @@ public class NeuralNetwork {
 		writer.close();
 	}
 
-
 	public static Layer[] loadDump(String filepath) throws FileNotFoundException , IOException{
-		
-		Gson gson = new Gson();
 		FileReader fr = new FileReader(filepath);
 		BufferedReader br = new BufferedReader(fr);
 		String json_dumps = null;
 		String line = null;
-		//json_dumps = "";
 		while ((line = br.readLine())!= null) {
 			json_dumps += line;
-			//System.out.println(line);
 		}
-		System.out.println(json_dumps);
 		br.close();
-		//JsonElement jelement = new JsonParser().parse(json_dumps);
-		Layer[] return_layer = gson.fromJson(json_dumps, Layer[].class);
-		System.out.println(return_layer);
+		JsonElement jelement = new JsonParser().parse(json_dumps);
+		Layer[] return_layer = new Gson().fromJson(json_dumps, Layer[].class);
 		return return_layer;
 	}
 	/*public Layer[] loadString(String dumps) throws FileNotFoundException {
@@ -132,7 +126,7 @@ public class NeuralNetwork {
 		}
 
 		BigDecimal bd = new BigDecimal(Float.toString(error / times));
-		bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+		bd = bd.setScale(8, BigDecimal.ROUND_HALF_UP);
 
 		return bd.floatValue();
 	}

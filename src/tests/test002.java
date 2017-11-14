@@ -165,15 +165,7 @@ public class test002 extends JFrame {
 		int score = 0;
 		boolean running = true;
 		
-		if(dump) {
-			try {
-				net.dump(net.getLayers());
-				System.out.println("dumped");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			dump = false;
-		}
+
 
 		try {
 			balls.clear();
@@ -185,6 +177,17 @@ public class test002 extends JFrame {
 
 			while (running) {
 
+				
+				if(dump) {
+					try {
+						net.dump(net.getLayers());
+						System.out.println("dumped");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					dump = false;
+				}
+				
 				float[] output = net.compute(new float[] {playerY, balls.get(0).y });
 
 				// if(playerY>0&&playerY<360-50)
