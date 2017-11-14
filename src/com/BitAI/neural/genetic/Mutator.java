@@ -21,7 +21,7 @@ public class Mutator {
 						if (modification == 0)
 							modification = 0.0000001f;
 
-						network.getLayers()[i].weights[k][l] = (float) (network.getLayers()[i].weights[k][l]+ modification);
+						network.getLayers()[i].weights[k][l] = (float) (network.getLayers()[i].weights[k][l] + modification);
 					}
 				}
 			}
