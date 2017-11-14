@@ -19,7 +19,7 @@ public class test004Flags {
 	public static int FLAG_ENGLAND = 0;
 	public static int FLAG_JAPAN = 1;
 
-	public static int TRAIN_IRETATIONS = 10000;
+	public static int TRAIN_IRETATIONS = 100000;
 
 	public static NeuralNetwork network;
 

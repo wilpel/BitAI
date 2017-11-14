@@ -45,7 +45,7 @@ public class test002 extends JFrame {
 
 	public static ArrayList<Ball> balls = new ArrayList<Ball>();
 	
-	public Layer[] loaded_layer;
+	public NeuralNetwork loaded_layer;
 
 	public static int sleepMS = 0;
 	public static int scoreAI, scoreWall;
@@ -180,7 +180,7 @@ public class test002 extends JFrame {
 				
 				if(dump) {
 					try {
-						net.dump(net.getLayers());
+						net.dump(net);
 						System.out.println("dumped");
 					} catch (Exception e) {
 						e.printStackTrace();
