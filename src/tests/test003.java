@@ -37,7 +37,7 @@ public class test003 extends JFrame {
 
 	public static ArrayList<Ball> balls = new ArrayList<Ball>();
 	
-	public Layer[] loaded_layer;
+	public NeuralNetwork new_nn;
 
 	public static int sleepMS = 0;
 	public static int scoreAI, scoreWall;
@@ -76,7 +76,7 @@ public class test003 extends JFrame {
 	    	                if(return_val == JFileChooser.APPROVE_OPTION) {
 	    	                	String filepath = fc.getSelectedFile().toString();
 	    	                	System.out.println(filepath);
-	    	                	loaded_layer = NeuralNetwork.loadDump(filepath);
+	    	                	new_nn = NeuralNetwork.loadDump(filepath);
 	    	                	//
 	    	                	//LOADED LAYER ANVÄNDS INTE ÄN
 	    	                	//
@@ -166,7 +166,7 @@ public class test003 extends JFrame {
 		
 		if(dump) {
 			try {
-				net.dump(net.getLayers());
+				net.dump(net);
 				System.out.println("dumped");
 			} catch (Exception e) {
 				e.printStackTrace();

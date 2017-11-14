@@ -42,7 +42,7 @@ public class NeuralNetwork {
 
 	}
 
-	public void dump(Layer[] ls) throws FileNotFoundException, IOException {
+	public void dump(NeuralNetwork ls) throws FileNotFoundException, IOException {
 		final String dir = System.getProperty("user.dir");
 		File dumps_file = new File(dir + dump_name);
 		new File(dir).mkdirs();
@@ -53,7 +53,7 @@ public class NeuralNetwork {
 		writer.close();
 	}
 
-	public static Layer[] loadDump(String filepath) throws FileNotFoundException , IOException{
+	public static NeuralNetwork loadDump(String filepath) throws FileNotFoundException , IOException{
 		FileReader fr = new FileReader(filepath);
 		BufferedReader br = new BufferedReader(fr);
 		String json_dumps = null;
@@ -62,9 +62,11 @@ public class NeuralNetwork {
 			json_dumps += line;
 		}
 		br.close();
-		JsonElement jelement = new JsonParser().parse(json_dumps);
-		Layer[] return_layer = new Gson().fromJson(json_dumps, Layer[].class);
-		return return_layer;
+		Gson gson = new Gson();
+		//JsonElement jelement = new JsonParser().parse(json_dumps);
+		NeuralNetwork loaded_net = gson.fromJson(json_dumps, NeuralNetwork.class);
+		System.out.println(loaded_net);
+		return loaded_net;
 	}
 	/*public Layer[] loadString(String dumps) throws FileNotFoundException {
 		final String dir = System.getProperty("user.dir");
