@@ -164,15 +164,15 @@ public class test003 extends JFrame {
 		int score = 0;
 		boolean running = true;
 		
-		if(dump) {
-			try {
-				net.dump(net);
-				System.out.println("dumped");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			dump = false;
-		}
+//		if(dump) {
+//			try {
+//				net.dump(net);
+//				System.out.println("dumped");
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			dump = false;
+//		}
 
 		try {
 			balls.clear();

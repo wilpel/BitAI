@@ -12,29 +12,34 @@ import java.math.BigDecimal;
 
 import com.BitAI.neural.layers.HandleLayer;
 import com.BitAI.neural.layers.Layer;
+import com.BitAI.neural.layers.LayerFactory;
 
 public class NeuralNetwork implements Serializable {
 
-	HandleLayer[] layers_array;
 	Layer[] layers;
 
 	boolean loaded_weights = false;
 	String dump_name = "/dumps/last_dump.txt";
 
-	public NeuralNetwork(HandleLayer[] layers_array) {
+	public NeuralNetwork(LayerFactory lf) {
 
 		if (loaded_weights) {
 
 		} else {
+			
 
-			this.layers_array = layers_array;
-
-			layers = new Layer[layers_array.length - 1];
+			layers = new Layer[lf.getLayers().size() - 1];
 
 			for (int i = 0; i < layers.length; i++) {
-				//IF 0 layer = CONVUL
-				layers[i] = new Layer(layers_array[i].getNeuronCount(), layers_array[i + 1].getNeuronCount(),
-						layers_array[i].getActivationFunction());
+				
+				if(lf.getLayers().get(i).getType() == LayerFactory.TYPE_SIMPLELAYER) {
+				layers[i] = new Layer(lf.getLayers().get(i).getNeuronCount(), lf.getLayers().get(i + 1).getNeuronCount(),
+						lf.getLayers().get(i).getActivationFunction());
+				}else {
+					
+					//Add covul layer here
+					
+				}
 			}
 		}
 
@@ -173,10 +178,6 @@ public class NeuralNetwork implements Serializable {
 
 	public Layer[] getLayers() {
 		return layers;
-	}
-
-	public HandleLayer[] getLayers_array() {
-		return layers_array;
 	}
 
 }

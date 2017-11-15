@@ -1,18 +1,23 @@
 package tests;
 
-import java.math.BigDecimal;
-
 import com.BitAI.neural.NeuralNetwork;
 import com.BitAI.neural.activation.ActivationTANH;
 import com.BitAI.neural.genetic.GeneticAlgorithm;
 import com.BitAI.neural.genetic.NetworkScore;
 import com.BitAI.neural.layers.HandleLayer;
+import com.BitAI.neural.layers.LayerFactory;
 
 public class test001 {
 
 	public static void main(String[] args) {
 
-		NeuralNetwork network = new NeuralNetwork(new HandleLayer[] { new HandleLayer(1, new ActivationTANH()), new HandleLayer(8, new ActivationTANH()), new HandleLayer(1, new ActivationTANH()) });
+		LayerFactory lf = new LayerFactory();
+		
+		lf.addLayer(1, new ActivationTANH(), LayerFactory.TYPE_SIMPLELAYER);
+		lf.addLayer(8, LayerFactory.TYPE_SIMPLELAYER);
+		lf.addLayer(1, new ActivationTANH(), LayerFactory.TYPE_SIMPLELAYER);
+		
+		NeuralNetwork network = new NeuralNetwork(lf);
 		GeneticAlgorithm ga = new GeneticAlgorithm(network, 10, 1000);
 
 		System.out.println(network.compute(new float[] { 0.5f })[0] * 1000);
