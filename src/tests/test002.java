@@ -34,7 +34,7 @@ import com.BitAI.neural.activation.ActivationSinusoid;
 import com.BitAI.neural.activation.ActivationTANH;
 import com.BitAI.neural.genetic.GeneticAlgorithm;
 import com.BitAI.neural.genetic.NetworkScore;
-import com.BitAI.neural.layers.BasicLayer;
+import com.BitAI.neural.layers.HandleLayer;
 import com.BitAI.neural.layers.Layer;
 import com.google.gson.Gson;
 
@@ -133,8 +133,8 @@ public class test002 extends JFrame {
 			@Override
 			public void run() {
 
-				NeuralNetwork network = new NeuralNetwork(new BasicLayer[] {
-						new BasicLayer(2, act), new BasicLayer(70, act), new BasicLayer(1, act) });
+				NeuralNetwork network = new NeuralNetwork(new HandleLayer[] {
+						new HandleLayer(2, act), new HandleLayer(70, act), new HandleLayer(1, act) });
 				GeneticAlgorithm ga = new GeneticAlgorithm(network, 10, 1000000);
 
 				ga.train(new NetworkScore() {

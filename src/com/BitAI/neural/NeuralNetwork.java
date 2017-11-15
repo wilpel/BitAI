@@ -10,18 +10,18 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.BitAI.neural.layers.BasicLayer;
+import com.BitAI.neural.layers.HandleLayer;
 import com.BitAI.neural.layers.Layer;
 
 public class NeuralNetwork implements Serializable {
 
-	BasicLayer[] layers_array;
+	HandleLayer[] layers_array;
 	Layer[] layers;
 
 	boolean loaded_weights = false;
 	String dump_name = "/dumps/last_dump.txt";
 
-	public NeuralNetwork(BasicLayer[] layers_array) {
+	public NeuralNetwork(HandleLayer[] layers_array) {
 
 		if (loaded_weights) {
 
@@ -130,6 +130,7 @@ public class NeuralNetwork implements Serializable {
 		return layers[layers.length - 1].output;
 	}
 
+
 	public void backPropagate(float[] expected) {
 
 		for (int i = layers.length - 1; i >= 0; i--) {
@@ -173,7 +174,7 @@ public class NeuralNetwork implements Serializable {
 		return layers;
 	}
 
-	public BasicLayer[] getLayers_array() {
+	public HandleLayer[] getLayers_array() {
 		return layers_array;
 	}
 

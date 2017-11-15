@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 import com.BitAI.neural.activation.ActivationFunction;
 
-public class BasicLayer implements Serializable{
+public class HandleLayer implements Serializable{
 
 	int neuronCount = 0;
 	ActivationFunction af;
 	
-	public BasicLayer(int neuronCount, ActivationFunction af) {
+	public HandleLayer(int neuronCount, ActivationFunction af) {
 		
 		this.neuronCount = neuronCount;
 		this.af = af;

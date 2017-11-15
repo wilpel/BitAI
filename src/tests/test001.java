@@ -6,13 +6,13 @@ import com.BitAI.neural.NeuralNetwork;
 import com.BitAI.neural.activation.ActivationTANH;
 import com.BitAI.neural.genetic.GeneticAlgorithm;
 import com.BitAI.neural.genetic.NetworkScore;
-import com.BitAI.neural.layers.BasicLayer;
+import com.BitAI.neural.layers.HandleLayer;
 
 public class test001 {
 
 	public static void main(String[] args) {
 
-		NeuralNetwork network = new NeuralNetwork(new BasicLayer[] { new BasicLayer(1, new ActivationTANH()), new BasicLayer(8, new ActivationTANH()), new BasicLayer(1, new ActivationTANH()) });
+		NeuralNetwork network = new NeuralNetwork(new HandleLayer[] { new HandleLayer(1, new ActivationTANH()), new HandleLayer(8, new ActivationTANH()), new HandleLayer(1, new ActivationTANH()) });
 		GeneticAlgorithm ga = new GeneticAlgorithm(network, 10, 1000);
 
 		System.out.println(network.compute(new float[] { 0.5f })[0] * 1000);

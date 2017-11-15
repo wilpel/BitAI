@@ -6,7 +6,7 @@ import java.util.Random;
 import com.BitAI.neural.Constants;
 import com.BitAI.neural.activation.ActivationFunction;
 
-public class Layer extends BaseLayer implements Serializable {
+public abstract class BaseLayer implements Serializable {
 
 	private static Random random;
 
@@ -22,9 +22,8 @@ public class Layer extends BaseLayer implements Serializable {
 
 	private ActivationFunction af;
 
-	public Layer(int inputNeuronCount, int outputNeuronCount, ActivationFunction af) {
-		super(inputNeuronCount, outputNeuronCount, af);
-		
+	public BaseLayer(int inputNeuronCount, int outputNeuronCount, ActivationFunction af) {
+
 		this.random = new Random();
 
 		this.inputNeuronCount = inputNeuronCount;
