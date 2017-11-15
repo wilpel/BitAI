@@ -136,8 +136,8 @@ public class test002 extends JFrame {
 			@Override
 			public void run() {
 
-				NeuralNetwork network = NeuralNetwork.reader("/home/juliet/Development/java/projects/BitAI/dumps/last_dump");/*new NeuralNetwork(new HandleLayer[] {
-						new HandleLayer(2, act), new HandleLayer(70, act), new HandleLayer(1, act) });*/
+				NeuralNetwork network = /*NeuralNetwork.reader("/home/juliet/Development/java/projects/BitAI/dumps/last_dump");*/new NeuralNetwork(new HandleLayer[] {
+						new HandleLayer(2, act), new HandleLayer(70, act), new HandleLayer(1, act) });
 				GeneticAlgorithm ga = new GeneticAlgorithm(network, 10, 1000000);
 
 				ga.train(new NetworkScore() {

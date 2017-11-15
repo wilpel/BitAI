@@ -10,13 +10,15 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.BitAI.neural.layers.BaseLayer;
+import com.BitAI.neural.layers.ConvolutionalLayer;
 import com.BitAI.neural.layers.HandleLayer;
 import com.BitAI.neural.layers.Layer;
 
 public class NeuralNetwork implements Serializable {
 
 	HandleLayer[] layers_array;
-	Layer[] layers;
+	BaseLayer[] layers;
 
 	boolean loaded_weights = false;
 	String dump_name = "/dumps/last_dump.txt";
@@ -29,10 +31,14 @@ public class NeuralNetwork implements Serializable {
 
 			this.layers_array = layers_array;
 
-			layers = new Layer[layers_array.length - 1];
+			layers = new BaseLayer[layers_array.length - 1];
 
 			for (int i = 0; i < layers.length; i++) {
-				//IF 0 layer = CONVUL
+				//IF 1 layer = CONVUL
+				if(i == 1) {
+					layers[i] = new ConvolutionalLayer(layers_array[i].getNeuronCount(), layers_array[i + 1].getNeuronCount(),
+							layers_array[i].getActivationFunction());
+				}
 				layers[i] = new Layer(layers_array[i].getNeuronCount(), layers_array[i + 1].getNeuronCount(),
 						layers_array[i].getActivationFunction());
 			}
@@ -171,7 +177,7 @@ public class NeuralNetwork implements Serializable {
 		return bd.floatValue();
 	}
 
-	public Layer[] getLayers() {
+	public BaseLayer[] getLayers() {
 		return layers;
 	}
 
