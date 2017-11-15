@@ -32,6 +32,7 @@ public class NeuralNetwork implements Serializable {
 			layers = new Layer[layers_array.length - 1];
 
 			for (int i = 0; i < layers.length; i++) {
+				//IF 0 layer = CONVUL
 				layers[i] = new Layer(layers_array[i].getNeuronCount(), layers_array[i + 1].getNeuronCount(),
 						layers_array[i].getActivationFunction());
 			}
@@ -97,7 +98,7 @@ public class NeuralNetwork implements Serializable {
 	public void writer(NeuralNetwork nn) {
 		try {
 			final String dir = System.getProperty("user.dir");
-			FileOutputStream f = new FileOutputStream(new File(dir +"/dumps/last_dump.txt"));
+			FileOutputStream f = new FileOutputStream(new File(dir +"/dumps/last_dump"));
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(nn);
 			o.close();

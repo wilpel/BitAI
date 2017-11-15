@@ -46,6 +46,7 @@ public class test002 extends JFrame {
 	public static ArrayList<Ball> balls = new ArrayList<Ball>();
 	
 	public NeuralNetwork loaded_layer;
+	boolean load = false;
 
 	public static int sleepMS = 0;
 	public static int scoreAI, scoreWall;
@@ -81,6 +82,8 @@ public class test002 extends JFrame {
 	    	                	//
 	    	                	//LOADED LAYER ANVÄNDS INTE ÄN
 	    	                	//
+	    	                	load = true;
+	    	                	
 	    	                } else {
 	    	                	System.out.println("An error occurred trying to open the file, please blame Gustav...");
 	    	                }
@@ -133,8 +136,8 @@ public class test002 extends JFrame {
 			@Override
 			public void run() {
 
-				NeuralNetwork network = new NeuralNetwork(new HandleLayer[] {
-						new HandleLayer(2, act), new HandleLayer(70, act), new HandleLayer(1, act) });
+				NeuralNetwork network = NeuralNetwork.reader("/home/juliet/Development/java/projects/BitAI/dumps/last_dump");/*new NeuralNetwork(new HandleLayer[] {
+						new HandleLayer(2, act), new HandleLayer(70, act), new HandleLayer(1, act) });*/
 				GeneticAlgorithm ga = new GeneticAlgorithm(network, 10, 1000000);
 
 				ga.train(new NetworkScore() {
@@ -186,6 +189,10 @@ public class test002 extends JFrame {
 						e.printStackTrace();
 					}
 					dump = false;
+				}
+				if (load) {
+					net = loaded_layer;
+					load = false;
 				}
 				
 				float[] output = net.compute(new float[] {playerY, balls.get(0).y });
