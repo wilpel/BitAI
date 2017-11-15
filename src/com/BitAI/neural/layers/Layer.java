@@ -10,30 +10,16 @@ public class Layer extends BaseLayer implements Serializable {
 
 	private static Random random;
 
-	public int inputNeuronCount;
-	public int outputNeuronCount;
-
-	public float[] output;
-	public float[] input;
 	public float[][] weights;
 	public float[][] weightsDelta;
 	public float[] gamma;
 	public float[] error;
 
-	private ActivationFunction af;
 
 	public Layer(int inputNeuronCount, int outputNeuronCount, ActivationFunction af) {
 		super(inputNeuronCount, outputNeuronCount, af);
 		
 		this.random = new Random();
-
-		this.inputNeuronCount = inputNeuronCount;
-		this.outputNeuronCount = outputNeuronCount;
-
-		this.af = af;
-
-		output = new float[outputNeuronCount];
-		input = new float[inputNeuronCount];
 
 		weights = new float[outputNeuronCount][inputNeuronCount];
 		weightsDelta = new float[outputNeuronCount][inputNeuronCount];
