@@ -6,12 +6,10 @@ import java.util.Random;
 import com.BitAI.neural.Constants;
 import com.BitAI.neural.activation.ActivationFunction;
 
-public class Layer extends BaseLayer implements Serializable {
+public class Layer extends BaseLayer {
 
 	private static Random random;
 
-	public float[][] weights;
-	public float[][] weightsDelta;
 	public float[] gamma;
 	public float[] error;
 
@@ -20,9 +18,6 @@ public class Layer extends BaseLayer implements Serializable {
 		super(inputNeuronCount, outputNeuronCount, af);
 		
 		this.random = new Random();
-
-		weights = new float[outputNeuronCount][inputNeuronCount];
-		weightsDelta = new float[outputNeuronCount][inputNeuronCount];
 		gamma = new float[outputNeuronCount];
 		error = new float[outputNeuronCount];
 

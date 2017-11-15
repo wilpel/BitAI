@@ -13,6 +13,9 @@ public abstract class BaseLayer implements Serializable {
 
 	public float[] output;
 	public float[] input;
+	
+	public float[][] weights;
+	public float[][] weightsDelta;
 
 
 	protected ActivationFunction af;
@@ -26,6 +29,9 @@ public abstract class BaseLayer implements Serializable {
 
 		output = new float[outputNeuronCount];
 		input = new float[inputNeuronCount];
+		
+		weights = new float[outputNeuronCount][inputNeuronCount];
+		weightsDelta = new float[outputNeuronCount][inputNeuronCount];
 
 	}
 }
