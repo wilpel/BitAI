@@ -10,13 +10,14 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.BitAI.neural.layers.HandleLayer;
+import com.BitAI.neural.layers.BaseLayer;
+import com.BitAI.neural.layers.ConvolutionalLayer;
 import com.BitAI.neural.layers.Layer;
 import com.BitAI.neural.layers.LayerFactory;
 
 public class NeuralNetwork implements Serializable {
 
-	Layer[] layers;
+	BaseLayer[] layers;
 
 	boolean loaded_weights = false;
 	String dump_name = "/dumps/last_dump.txt";
@@ -28,15 +29,16 @@ public class NeuralNetwork implements Serializable {
 		} else {
 			
 
-			layers = new Layer[lf.getLayers().size() - 1];
+			layers = new BaseLayer[lf.getLayers().size() - 1];
 
 			for (int i = 0; i < layers.length; i++) {
 				
 				if(lf.getLayers().get(i).getType() == LayerFactory.TYPE_SIMPLELAYER) {
-				layers[i] = new Layer(lf.getLayers().get(i).getNeuronCount(), lf.getLayers().get(i + 1).getNeuronCount(),
+					layers[i] = new Layer(lf.getLayers().get(i).getNeuronCount(), lf.getLayers().get(i + 1).getNeuronCount(),
 						lf.getLayers().get(i).getActivationFunction());
-				}else {
-					
+				}else if (lf.getLayers().get(i).getType() == LayerFactory.TYPE_CONVULUTIONAL) {
+					layers[i] = new ConvolutionalLayer(lf.getLayers().get(i).getNeuronCount(), lf.getLayers().get(i + 1).getNeuronCount(),
+							lf.getLayers().get(i).getActivationFunction());
 					//Add covul layer here
 					
 				}
@@ -176,7 +178,7 @@ public class NeuralNetwork implements Serializable {
 		return bd.floatValue();
 	}
 
-	public Layer[] getLayers() {
+	public BaseLayer[] getLayers() {
 		return layers;
 	}
 

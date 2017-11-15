@@ -11,9 +11,8 @@ public class ConvolutionalLayer extends BaseLayer {
 			};
 	int[][] dimensions;
 
-	public ConvolutionalLayer(int inputNeuronCount, int outputNeuronCount, ActivationFunction af, int[][] dimensions) {
+	public ConvolutionalLayer(int inputNeuronCount, int outputNeuronCount, ActivationFunction af) {
 		super(inputNeuronCount, outputNeuronCount, af);
-		this.dimensions = dimensions;
 		
 		/*for (int i = 0; i < outputNeuronCount; i++) {
 			for (int j = 0; j < inputNeuronCount; j++) {
