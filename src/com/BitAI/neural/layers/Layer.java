@@ -15,8 +15,6 @@ public class Layer extends BaseLayer {
 		super(inputNeuronCount, outputNeuronCount, af);
 		
 		this.random = new Random();
-		gamma = new float[outputNeuronCount];
-		error = new float[outputNeuronCount];
 
 		for (int i = 0; i < outputNeuronCount; i++) {
 			for (int j = 0; j < inputNeuronCount; j++) {

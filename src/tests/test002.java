@@ -1,9 +1,7 @@
 package tests;
 
 import java.awt.BorderLayout;
-import static com.BitAI.neural.NeuralNetwork.reader;
 import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -11,10 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -27,16 +21,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import com.BitAI.neural.NeuralNetwork;
-import com.BitAI.neural.activation.ActivationLeakyReLu;
-import com.BitAI.neural.activation.ActivationLinear;
-import com.BitAI.neural.activation.ActivationSigmoid;
-import com.BitAI.neural.activation.ActivationSinusoid;
 import com.BitAI.neural.activation.ActivationTANH;
 import com.BitAI.neural.genetic.GeneticAlgorithm;
 import com.BitAI.neural.genetic.NetworkScore;
-import com.BitAI.neural.layers.HandleLayer;
-import com.BitAI.neural.layers.Layer;
-import com.google.gson.Gson;
+import com.BitAI.neural.layers.LayerFactory;
 
 public class test002 extends JFrame {
 
@@ -136,7 +124,13 @@ public class test002 extends JFrame {
 			@Override
 			public void run() {
 
-				NeuralNetwork network = NeuralNetwork.reader("/home/juliet/Development/java/projects/BitAI/dumps/last_dump");/*new NeuralNetwork(new HandleLayer[] {
+				LayerFactory lf = new LayerFactory();
+				
+				lf.addLayer(2, new ActivationTANH(), LayerFactory.TYPE_SIMPLELAYER);
+				lf.addLayer(25, new ActivationTANH(), LayerFactory.TYPE_SIMPLELAYER);
+				lf.addLayer(1, new ActivationTANH(), LayerFactory.TYPE_SIMPLELAYER);
+				
+				NeuralNetwork network = new NeuralNetwork(lf);/*new NeuralNetwork(new HandleLayer[] {
 						new HandleLayer(2, act), new HandleLayer(70, act), new HandleLayer(1, act) });*/
 				GeneticAlgorithm ga = new GeneticAlgorithm(network, 10, 1000000);
 

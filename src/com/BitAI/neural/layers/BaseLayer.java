@@ -6,7 +6,7 @@ import java.util.Random;
 import com.BitAI.neural.Constants;
 import com.BitAI.neural.activation.ActivationFunction;
 
-public abstract class BaseLayer implements Serializable {
+public class BaseLayer implements Serializable {
 
 	public int inputNeuronCount;
 	public int outputNeuronCount;
@@ -37,6 +37,9 @@ public abstract class BaseLayer implements Serializable {
 		weights = new float[outputNeuronCount][inputNeuronCount];
 		weightsDelta = new float[outputNeuronCount][inputNeuronCount];
 
+		gamma = new float[outputNeuronCount];
+		error = new float[outputNeuronCount];
+		
 	}
 	
 	public float square(float value) {
