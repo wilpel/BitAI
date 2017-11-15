@@ -32,6 +32,7 @@ public class test004Flags {
 
 		LayerFactory lf = new LayerFactory();
 		
+		//lf.addLayer(20*15, new ActivationTANH(), LayerFactory.TYPE_CONVULUTIONAL);
 		lf.addLayer(20*15, new ActivationTANH(), LayerFactory.TYPE_SIMPLELAYER);
 		lf.addLayer(8, new ActivationTANH(), LayerFactory.TYPE_SIMPLELAYER);
 		lf.addLayer(AMOUNT_OF_FLAGS, new ActivationTANH(), LayerFactory.TYPE_SIMPLELAYER);

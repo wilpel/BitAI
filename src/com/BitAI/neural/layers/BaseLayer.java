@@ -1,7 +1,7 @@
 package com.BitAI.neural.layers;
 
 import java.io.Serializable;
-import java.util.Random;
+import java.util.Arrays;
 
 import com.BitAI.neural.Constants;
 import com.BitAI.neural.activation.ActivationFunction;
@@ -20,6 +20,8 @@ public class BaseLayer implements Serializable {
 
 	public float[] gamma;
 	public float[] error;
+	
+	public boolean drop;
 
 
 	protected ActivationFunction af;
@@ -47,8 +49,6 @@ public class BaseLayer implements Serializable {
 	}
 
 	public float[] feedForward(float[] input) {
-
-		
 		
 		this.input = input;
 
@@ -57,8 +57,21 @@ public class BaseLayer implements Serializable {
 			output[i] = 0;
 
 			for (int j = 0; j < inputNeuronCount; j++) {
-				
-				output[i] += input[j] * weights[i][j];
+
+				if(drop) {
+					int[] todrop = dropOut(outputNeuronCount);
+					int start_index = 0;
+					int curr_todrop = todrop[start_index];
+					if (i == curr_todrop) {
+						output[i] = 0;
+						start_index++;
+					} else {
+						output[i] += input[j] * weights[i][j];
+					}
+
+				} else {
+					output[i] += input[j] * weights[i][j];
+				}
 				
 		
 			}
@@ -124,6 +137,15 @@ public class BaseLayer implements Serializable {
 			}
 		}
 
+	}
+	
+	public int[] dropOut(int outputNeuronCount) {
+	    int[] dropouts = new int[outputNeuronCount/10]; //10% dropout       
+	    for(int i = 0; i < dropouts.length; i++) {
+	      dropouts[i] = (int)(Math.random()*outputNeuronCount);
+	    }//end for loop
+	    System.out.println("Numbers Generated: " + Arrays.toString(dropouts));
+	    return dropouts;
 	}
 
 	public ActivationFunction getActivationFunction() {

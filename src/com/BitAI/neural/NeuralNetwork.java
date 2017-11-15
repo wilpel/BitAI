@@ -28,15 +28,15 @@ public class NeuralNetwork implements Serializable {
 
 		} else {
 			
-
 			layers = new Layer[lf.getLayers().size() - 1];
-
+			
 			for (int i = 0; i < layers.length; i++) {
-				
+
 				if(lf.getLayers().get(i).getType() == LayerFactory.TYPE_SIMPLELAYER) {
 					layers[i] = new Layer(lf.getLayers().get(i).getNeuronCount(), lf.getLayers().get(i + 1).getNeuronCount(),	lf.getLayers().get(i).getActivationFunction());
 				//	System.out.println("added layer with data: "+lf.getLayers().get(i).getNeuronCount()+", "+lf.getLayers().get(i + 1).getNeuronCount()+", "+lf.getLayers().get(i).getActivationFunction().process(1));
 				}else if (lf.getLayers().get(i).getType() == LayerFactory.TYPE_CONVULUTIONAL) {
+					System.out.println('p');
 					layers[i] = new ConvolutionalLayer(lf.getLayers().get(i).getNeuronCount(), lf.getLayers().get(i + 1).getNeuronCount(),lf.getLayers().get(i).getActivationFunction());
 					//Add covul layer here
 					
