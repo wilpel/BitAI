@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import com.BitAI.neural.NeuralNetwork;
 import com.BitAI.neural.activation.ActivationTANH;
 import com.BitAI.neural.layers.HandleLayer;
+import com.BitAI.neural.layers.LayerFactory;
 
 public class test004Flags {
 
@@ -29,8 +30,13 @@ public class test004Flags {
 
 	public static void main(String[] args) {
 
-		network = new NeuralNetwork(new HandleLayer[] { new HandleLayer(20 * 15, act), new HandleLayer(40, act),
-				new HandleLayer(100, act), new HandleLayer(40, act), new HandleLayer(AMOUNT_OF_FLAGS, act) });
+		LayerFactory lf = new LayerFactory();
+		
+		lf.addLayer(20*15, new ActivationTANH(), LayerFactory.TYPE_SIMPLELAYER);
+		lf.addLayer(8, new ActivationTANH(), LayerFactory.TYPE_SIMPLELAYER);
+		lf.addLayer(AMOUNT_OF_FLAGS, new ActivationTANH(), LayerFactory.TYPE_SIMPLELAYER);
+		
+		network = new NeuralNetwork(lf);
 
 		//for (int j = 0; j < 100; j++) {
 			// TASKS

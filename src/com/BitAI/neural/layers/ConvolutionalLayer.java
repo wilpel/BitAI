@@ -11,8 +11,9 @@ public class ConvolutionalLayer extends BaseLayer {
 			};
 	int[][] dimensions;
 
-	public ConvolutionalLayer(int inputNeuronCount, int outputNeuronCount, ActivationFunction af) {
+	public ConvolutionalLayer(int inputNeuronCount, int outputNeuronCount, ActivationFunction af, int[][] dimensions) {
 		super(inputNeuronCount, outputNeuronCount, af);
+		this.dimensions = dimensions;
 		
 		/*for (int i = 0; i < outputNeuronCount; i++) {
 			for (int j = 0; j < inputNeuronCount; j++) {
@@ -26,7 +27,7 @@ public class ConvolutionalLayer extends BaseLayer {
 		float[] out = new float[input.length + input[0].length];
 		for (int i = 0; i < input.length; i++) {
 			for (int j = 0; j < input[0].length; j++) {
-				out[i+j] = input[i][j];
+				out[i* input[0].length +j] = input[i][j];
 			}
 		}
 		return out;
@@ -55,5 +56,29 @@ public class ConvolutionalLayer extends BaseLayer {
 		}
 		return output;
 	}
+	
+	/*public float[][] KernelProcess(float[][] input, int i, int j) {
+		//Loop trough all pixels around the input pixel
+		float[][] output = input;
+		for (int k = -1; k < 2; k++) {
+			for (int l = -1; l < 2; l++) {
+				output[i][j] += input[k][l]*(float)kernel[k+1][l+1];
+			}
+			
+		}
+		return output;
+	}
+	
+	public float[][] Convlove(float[][] input) {
+		float[][] output = input;
+		for(int i = 1; i < input[0].length-1; i++) {
+			for(int j = 1; j < input[1].length-1; j++) {
+				output[i][j] = KernelProcess(input, i, j);
+			}
+			
+		}
+		return output;
+	}*/
+
 
 }
